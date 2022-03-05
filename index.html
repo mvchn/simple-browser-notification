@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <title>Notify</title>
+    <script>
+        function notifyMe() {
+            if (!window.Notification) {
+                console.log('Browser does not support notifications.');
+            } else {
+                if (Notification.permission === 'granted') {
+                    var notify = new Notification('Hi there!', {
+                        body: 'How are you doing?',
+                    });
+                } else {
+                    // request permission from user
+                    Notification.requestPermission().then(function (p) {
+                        if (p === 'granted') {
+                            var notify = new Notification('Hi there!', {
+                                body: 'How are you doing?',
+                            });
+                        } else {
+                            console.log('User blocked notifications.');
+                        }
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button onclick="notifyMe()">Notify Me</button>
+</body>
+</html>
