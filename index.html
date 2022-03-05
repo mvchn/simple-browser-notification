@@ -3,33 +3,19 @@
 <head>
     <title>Notify</title>
     <script>
-        function notifyMe() {
-            if (!window.Notification) {
-                console.log('Browser does not support notifications.');
-            } else {
-                if (Notification.permission === 'granted') {
-                    var notify = new Notification('Hi there!', {
-                        body: 'How are you doing?',
-                    });
-                } else {
-                    // request permission from user
-                    Notification.requestPermission().then(function (p) {
-                        if (p === 'granted') {
-                            var notify = new Notification('Hi there!', {
-                                body: 'How are you doing?',
-                            });
-                        } else {
-                            console.log('User blocked notifications.');
-                        }
-                    }).catch(function (err) {
-                        console.error(err);
-                    });
-                }
-            }
-        }
+        //default, granted, denied
+       console.log(Notification.permission)
+
+       if(Notification.permission === "granted") {
+           alert("permission granted");
+       } else if(Notification.permission !== "denied") {
+            Notification.requestPermission().then(permission => {
+                console.log(permission);
+            })
+       }
     </script>
 </head>
 <body>
-<button onclick="notifyMe()">Notify Me</button>
+<button>Notify Me</button>
 </body>
 </html>
